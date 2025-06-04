@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String
+  password  String
+  createdAt DateTime @default(now())
+
+  paymentMethods PaymentMethod[]
+  categories     Category[]
+  transactions   Transaction[]
+}
+
+model PaymentMethod {
+  id             String            @id @default(auto()) @map("_id") @db.ObjectId
+  description    String
+  initialBalance Float
+  type           PaymentMethodType @default(BANK)
+  userId         String            @db.ObjectId
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  user         User          @relation(fields: [userId], references: [id])
+  transactions Transaction[]
+}
+
+enum PaymentMethodType {
+  BANK
+  CARD
+  SAVING
+}
+
+model Category {
+  id        String       @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  type      CategoryType @default(EXPENSE)
+  userId    String       @db.ObjectId
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  user         User          @relation(fields: [userId], references: [id])
+  transactions Transaction[]
+}
+
+enum CategoryType {
+  INCOME
+  EXPENSE
+}
+
+model Transaction {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  description     String
+  amount          Float
+  userId          String   @db.ObjectId
+  paymentMethodId String   @db.ObjectId
+  categoryId      String   @db.ObjectId
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user          User          @relation(fields: [userId], references: [id])
+  paymentMethod PaymentMethod @relation(fields: [paymentMethodId], references: [id])
+  category      Category      @relation(fields: [categoryId], references: [id])
+}

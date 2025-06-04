@@ -18,12 +18,12 @@ export class LoginUserUseCase {
   async execute({ email, password }: ILoginUserInput) {
     const user = await this.AuthRepository.findByEmail(email);
     if (!user) {
-      throw new BadRequestError("Invalid credentials");
+      throw new BadRequestError("Credenciais inválidas");
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      throw new BadRequestError("Invalid credentials");
+      throw new BadRequestError("Credenciais inválidas");
     }
 
     const token = await this.JwtFastifyRepository.sign({ sub: user.id });

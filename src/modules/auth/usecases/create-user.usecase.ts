@@ -15,7 +15,7 @@ export class CreateUserUseCase {
   async execute(data: ICreateUserInput) {
     const user = await this.AuthRepository.findByEmail(data.email);
     if (user) {
-      throw new BadRequestError("This email is already registered");
+      throw new BadRequestError("Este e-mail já está cadastrado");
     }
 
     const passwordHashed = await bcrypt.hash(data.password, 12);

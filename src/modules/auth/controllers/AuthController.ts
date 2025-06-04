@@ -37,7 +37,7 @@ export class AuthController {
       }
 
       console.error(error);
-      reply.status(500).send({ message: "Internal server error" });
+      reply.status(500).send({ message: "Erro interno" });
     }
   }
 
@@ -60,7 +60,7 @@ export class AuthController {
       }
 
       console.error(error);
-      reply.status(500).send({ message: "Internal server error" });
+      reply.status(500).send({ message: "Erro interno" });
     }
   }
 
@@ -77,7 +77,7 @@ export class AuthController {
       }
 
       console.error(error);
-      reply.status(500).send({ message: "Internal server error" });
+      reply.status(500).send({ message: "Erro interno" });
     }
   }
 }

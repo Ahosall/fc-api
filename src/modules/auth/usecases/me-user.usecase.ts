@@ -11,7 +11,7 @@ export class MeUserUseCase {
   async execute(data: IMeUserData) {
     const user = await this.AuthRepository.getById(data.sub);
     if (!user) {
-      throw new NotFoundError("User does not exists");
+      throw new NotFoundError("Usuário não existe");
     }
 
     return user;

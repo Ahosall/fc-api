@@ -5,6 +5,7 @@ import jwtPlugin from "@shared/plugins/jwt";
 import authenticatePlugin from "@shared/plugins/authenticate";
 
 import { authRoutes } from "@modules/auth/routes";
+import { categoriesRoutes } from "@modules/categories/routes";
 
 export const app = Fastify({ logger: true });
 
@@ -15,3 +16,4 @@ app.register(authenticatePlugin);
 
 // Routes
 app.register(authRoutes, { prefix: "/auth" });
+app.register(categoriesRoutes, { prefix: "/categories" });

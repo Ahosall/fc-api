@@ -1,13 +1,20 @@
 import { FastifyInstance } from "fastify";
-import { CategoryController } from "./controllers/CategoryController";
+
+import {
+  CategoryController,
+  CreateCategoryRequest,
+} from "./controllers/CategoryController";
 
 export const categoriesRoutes = (instance: FastifyInstance) => {
   const preConf = { preHandler: [instance.authenticate] };
 
+  const { list, create } = CategoryController;
+
   // GET:/categories/list
-  instance.get("/list", preConf, CategoryController.list);
+  instance.get("/list", preConf, list);
 
   // POST:/categories/create
+  instance.post<CreateCategoryRequest>("/create", preConf, create);
 
   // GET:/categories/:id
 

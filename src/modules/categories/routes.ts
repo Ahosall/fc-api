@@ -19,8 +19,9 @@ export const categoriesRoutes = (instance: FastifyInstance) => {
 
   // GET:/categories/:id
   instance.get<GetCategoryRequest>("/:id", preConf, get);
-
+  
   // PUT:/categories/:id/edit
+  instance.put<GetCategoryRequest>("/:id/edit", preConf, get);
 
   // DELETE:/categories/:id/delete
 };

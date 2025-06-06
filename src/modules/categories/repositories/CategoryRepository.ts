@@ -16,4 +16,9 @@ export class CategoryRepository {
   async create(data: ICategoryCreateRepository) {
     await prisma.category.create({ data });
   }
+
+  async get(id: string, userId: string) {
+    const category = await prisma.category.findFirst({ where: { id, userId } });
+    return category;
+  }
 }

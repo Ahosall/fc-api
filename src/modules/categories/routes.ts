@@ -26,5 +26,5 @@ export const categoriesRoutes = (instance: FastifyInstance) => {
   instance.put<EditCategoryRequest>("/:id/edit", preConf, edit);
 
   // DELETE:/categories/:id/delete
-  instance.put<DeleteCategoryRequest>("/:id/delete", preConf, remove);
+  instance.delete<DeleteCategoryRequest>("/:id/delete", preConf, remove);
 };

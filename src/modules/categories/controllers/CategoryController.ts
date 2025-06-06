@@ -4,7 +4,7 @@ import { BaseError } from "@shared/errors/BaseError";
 
 import { CategoryRepository } from "../repositories/CategoryRepository";
 
-import { ICreateCategoryInput } from "../usecases/create-category.usecase";
+import { TCreateCategoryInput } from "../usecases/create-category.usecase";
 
 import { ListCategoriesUseCase } from "../usecases/list-categories.usecase";
 import { CreateCategoryUseCase } from "../usecases/create-category.usecase";
@@ -12,7 +12,7 @@ import { GetCategoryUseCase } from "../usecases/get-category.usecase";
 import { EditCategoryUseCase } from "../usecases/edit-category.usecase";
 import { DeleteCategoryUseCase } from "../usecases/delete-category.usecase";
 
-export type CreateCategoryRequest = { Body: ICreateCategoryInput };
+export type CreateCategoryRequest = { Body: TCreateCategoryInput };
 export type GetCategoryRequest = { Params: { id: string } };
 export type EditCategoryRequest = GetCategoryRequest & CreateCategoryRequest;
 export type DeleteCategoryRequest = GetCategoryRequest;

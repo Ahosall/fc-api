@@ -1,14 +1,17 @@
-import { CategoryRepository } from "../repositories/CategoryRepository";
+import {
+  CategoryRepository,
+  ICategoryRepository,
+} from "../repositories/CategoryRepository";
 
-export interface ICreateCategoryInput {
-  name: string;
-  type: "INCOME" | "EXPENSE";
-}
+export type TCreateCategoryInput = Omit<
+  ICategoryRepository,
+  "id" | "userId" | "createdAt" | "updatedAt"
+>;
 
 export class CreateCategoryUseCase {
   constructor(private readonly CategoryRepository: CategoryRepository) {}
 
-  async execute(data: ICreateCategoryInput, userId: string) {
+  async execute(data: TCreateCategoryInput, userId: string) {
     await this.CategoryRepository.create({ ...data, userId });
   }
 }

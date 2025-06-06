@@ -1,16 +1,18 @@
 import { prisma } from "@shared/database/prisma";
 
-interface ICategoryCreateRepository {
+export interface ICategoryRepository {
+  id: string;
   name: string;
   type: "INCOME" | "EXPENSE";
   userId: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
-interface ICategoryEditRepository {
-  name: string;
-  type: "INCOME" | "EXPENSE";
-  userId: string;
-}
+type TCategoryInput = Omit<
+  ICategoryRepository,
+  "id" | "createdAt" | "updatedAt"
+>;
 
 export class CategoryRepository {
   async list(userId: string) {
@@ -19,7 +21,7 @@ export class CategoryRepository {
     return categories;
   }
 
-  async create(data: ICategoryCreateRepository) {
+  async create(data: TCategoryInput) {
     await prisma.category.create({ data });
   }
 
@@ -28,7 +30,7 @@ export class CategoryRepository {
     return category;
   }
 
-  async edit(id: string, data: ICategoryEditRepository) {
+  async edit(id: string, data: TCategoryInput) {
     const category = await prisma.category.update({
       data,
       where: { id, userId: data.userId },

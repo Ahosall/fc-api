@@ -67,7 +67,7 @@ export class CategoryController {
       const useCase = new GetCategoryUseCase(repository);
       const category = await useCase.execute(params.id, user.sub);
 
-      reply.code(201).send({ category });
+      reply.code(200).send({ category });
     } catch (error) {
       if (error instanceof BaseError) {
         return reply.code(error.statusCode).send({ message: error.message });
@@ -89,7 +89,7 @@ export class CategoryController {
       const useCase = new EditCategoryUseCase(repository);
       const category = await useCase.execute(params.id, body, user.sub);
 
-      reply.code(201).send({ category });
+      reply.code(200).send({ category });
     } catch (error) {
       if (error instanceof BaseError) {
         return reply.code(error.statusCode).send({ message: error.message });
@@ -105,13 +105,13 @@ export class CategoryController {
     reply: FastifyReply
   ) {
     try {
-      const { params, body, user } = request;
+      const { params, user } = request;
 
       const repository = new CategoryRepository();
       const useCase = new DeleteCategoryUseCase(repository);
       await useCase.execute(params.id, user.sub);
 
-      reply.code(201).send({ message: "Categoria deletada" });
+      reply.code(200).send({ message: "Categoria deletada" });
     } catch (error) {
       if (error instanceof BaseError) {
         return reply.code(error.statusCode).send({ message: error.message });

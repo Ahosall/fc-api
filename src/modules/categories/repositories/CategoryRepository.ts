@@ -1,12 +1,12 @@
 import { prisma } from "@shared/database/prisma";
 
-export interface ICategoryCreateRepository {
+interface ICategoryCreateRepository {
   name: string;
   type: "INCOME" | "EXPENSE";
   userId: string;
 }
 
-export interface ICategoryEditRepository {
+interface ICategoryEditRepository {
   name: string;
   type: "INCOME" | "EXPENSE";
   userId: string;

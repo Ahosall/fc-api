@@ -3,13 +3,14 @@ import { FastifyInstance } from "fastify";
 import {
   CategoryController,
   CreateCategoryRequest,
+  EditCategoryRequest,
   GetCategoryRequest,
 } from "./controllers/CategoryController";
 
 export const categoriesRoutes = (instance: FastifyInstance) => {
   const preConf = { preHandler: [instance.authenticate] };
 
-  const { list, create, get } = CategoryController;
+  const { list, create, get, edit } = CategoryController;
 
   // GET:/categories/list
   instance.get("/list", preConf, list);
@@ -19,9 +20,9 @@ export const categoriesRoutes = (instance: FastifyInstance) => {
 
   // GET:/categories/:id
   instance.get<GetCategoryRequest>("/:id", preConf, get);
-  
+
   // PUT:/categories/:id/edit
-  instance.put<GetCategoryRequest>("/:id/edit", preConf, get);
+  instance.put<EditCategoryRequest>("/:id/edit", preConf, edit);
 
   // DELETE:/categories/:id/delete
 };

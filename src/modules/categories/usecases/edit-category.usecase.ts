@@ -1,15 +1,18 @@
 import { NotFoundError } from "@shared/errors/NotFoundError";
-import { CategoryRepository } from "../repositories/CategoryRepository";
+import {
+  CategoryRepository,
+  ICategoryRepository,
+} from "../repositories/CategoryRepository";
 
-export interface IEditCategoryInput {
-  name: string;
-  type: "INCOME" | "EXPENSE";
-}
+type TEditCategoryInput = Omit<
+  ICategoryRepository,
+  "id" | "userId" | "createdAt" | "updatedAt"
+>;
 
 export class EditCategoryUseCase {
   constructor(private readonly CategoryRepository: CategoryRepository) {}
 
-  async execute(id: string, data: IEditCategoryInput, userId: string) {
+  async execute(id: string, data: TEditCategoryInput, userId: string) {
     const found = await this.CategoryRepository.get(id, userId);
     if (!found) {
       throw new NotFoundError("A categoria não existe");

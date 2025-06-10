@@ -3,7 +3,7 @@ import {
   ICategoryRepository,
 } from "../repositories/CategoryRepository";
 
-export type TCreateCategoryInput = Omit<
+type TCreateCategoryInput = Omit<
   ICategoryRepository,
   "id" | "userId" | "createdAt" | "updatedAt"
 >;

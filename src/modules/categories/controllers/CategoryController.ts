@@ -2,9 +2,10 @@ import { FastifyReply, FastifyRequest } from "fastify";
 
 import { BaseError } from "@shared/errors/BaseError";
 
-import { CategoryRepository } from "../repositories/CategoryRepository";
-
-import { TCreateCategoryInput } from "../usecases/create-category.usecase";
+import {
+  CategoryRepository,
+  ICategoryRepository,
+} from "../repositories/CategoryRepository";
 
 import { ListCategoriesUseCase } from "../usecases/list-categories.usecase";
 import { CreateCategoryUseCase } from "../usecases/create-category.usecase";
@@ -12,7 +13,9 @@ import { GetCategoryUseCase } from "../usecases/get-category.usecase";
 import { EditCategoryUseCase } from "../usecases/edit-category.usecase";
 import { DeleteCategoryUseCase } from "../usecases/delete-category.usecase";
 
-export type CreateCategoryRequest = { Body: TCreateCategoryInput };
+export type CreateCategoryRequest = {
+  Body: Omit<ICategoryRepository, "id" | "userId" | "createdAt" | "updatedAt">;
+};
 export type GetCategoryRequest = { Params: { id: string } };
 export type EditCategoryRequest = GetCategoryRequest & CreateCategoryRequest;
 export type DeleteCategoryRequest = GetCategoryRequest;

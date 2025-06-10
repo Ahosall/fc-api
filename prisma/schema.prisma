@@ -26,7 +26,6 @@ model PaymentMethod {
   type           PaymentMethodType @default(BANK)
   userId         String            @db.ObjectId
   createdAt      DateTime          @default(now())
-  updatedAt      DateTime          @updatedAt
 
   user         User          @relation(fields: [userId], references: [id])
   transactions Transaction[]
@@ -44,7 +43,6 @@ model Category {
   type      CategoryType @default(EXPENSE)
   userId    String       @db.ObjectId
   createdAt DateTime     @default(now())
-  updatedAt DateTime     @updatedAt
 
   user         User          @relation(fields: [userId], references: [id])
   transactions Transaction[]
@@ -57,13 +55,13 @@ enum CategoryType {
 
 model Transaction {
   id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  date            DateTime
   description     String
   amount          Float
   userId          String   @db.ObjectId
   paymentMethodId String   @db.ObjectId
   categoryId      String   @db.ObjectId
   createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
 
   user          User          @relation(fields: [userId], references: [id])
   paymentMethod PaymentMethod @relation(fields: [paymentMethodId], references: [id])

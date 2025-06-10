@@ -7,10 +7,9 @@ export interface IMethodRepository {
   type: "BANK" | "CARD" | "SAVING";
   userId: string;
   createdAt: string;
-  updatedAt: string;
 }
 
-type TMethodInput = Omit<IMethodRepository, "id" | "createdAt" | "updatedAt">;
+type TMethodInput = Omit<IMethodRepository, "id" | "createdAt">;
 
 export class MethodRepository {
   async list(userId: string) {

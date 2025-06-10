@@ -5,7 +5,7 @@ import {
 
 type TCreateMethodInput = Omit<
   IMethodRepository,
-  "id" | "userId" | "createdAt" | "updatedAt"
+  "id" | "userId" | "createdAt"
 >;
 
 export class CreateMethodUseCase {

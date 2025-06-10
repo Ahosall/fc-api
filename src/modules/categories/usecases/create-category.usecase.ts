@@ -5,7 +5,7 @@ import {
 
 type TCreateCategoryInput = Omit<
   ICategoryRepository,
-  "id" | "userId" | "createdAt" | "updatedAt"
+  "id" | "userId" | "createdAt"
 >;
 
 export class CreateCategoryUseCase {

@@ -9,10 +9,7 @@ export interface ICategoryRepository {
   updatedAt: string;
 }
 
-type TCategoryInput = Omit<
-  ICategoryRepository,
-  "id" | "createdAt" | "updatedAt"
->;
+type TCategoryInput = Omit<ICategoryRepository, "id" | "createdAt">;
 
 export class CategoryRepository {
   async list(userId: string) {

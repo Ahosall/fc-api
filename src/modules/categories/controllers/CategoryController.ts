@@ -14,7 +14,7 @@ import { EditCategoryUseCase } from "../usecases/edit-category.usecase";
 import { DeleteCategoryUseCase } from "../usecases/delete-category.usecase";
 
 export type CreateCategoryRequest = {
-  Body: Omit<ICategoryRepository, "id" | "userId" | "createdAt" | "updatedAt">;
+  Body: Omit<ICategoryRepository, "id" | "userId" | "createdAt">;
 };
 export type GetCategoryRequest = { Params: { id: string } };
 export type EditCategoryRequest = GetCategoryRequest & CreateCategoryRequest;

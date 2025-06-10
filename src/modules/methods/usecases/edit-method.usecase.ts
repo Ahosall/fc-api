@@ -4,10 +4,7 @@ import {
   IMethodRepository,
 } from "../repositories/MethodRepository";
 
-type TEditMethodInput = Omit<
-  IMethodRepository,
-  "id" | "userId" | "createdAt" | "updatedAt"
->;
+type TEditMethodInput = Omit<IMethodRepository, "id" | "userId" | "createdAt">;
 
 export class EditMethodUseCase {
   constructor(private readonly MethodRepository: MethodRepository) {}

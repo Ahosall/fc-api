@@ -6,7 +6,7 @@ import {
 
 type TEditCategoryInput = Omit<
   ICategoryRepository,
-  "id" | "userId" | "createdAt" | "updatedAt"
+  "id" | "userId" | "createdAt"
 >;
 
 export class EditCategoryUseCase {

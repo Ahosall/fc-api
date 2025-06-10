@@ -14,7 +14,7 @@ import { EditMethodUseCase } from "../usecases/edit-method.usecase";
 import { DeleteMethodUseCase } from "../usecases/delete-method.usecase";
 
 export type CreateMethodRequest = {
-  Body: Omit<IMethodRepository, "id" | "userId" | "createdAt" | "updatedAt">;
+  Body: Omit<IMethodRepository, "id" | "userId" | "createdAt">;
 };
 export type GetMethodRequest = { Params: { id: string } };
 export type EditMethodRequest = GetMethodRequest & CreateMethodRequest;

@@ -11,9 +11,11 @@ import {
 
 import { ListMethodsUseCase } from "../usecases/list-methods.usecase";
 import { GetMethodUseCase } from "../usecases/get-method.usecase";
+import { EditMethodUseCase } from "../usecases/edit-method.usecase";
 
 export type CreateMethodRequest = { Body: TCreateMethodInput };
 export type GetMethodRequest = { Params: { id: string } };
+export type EditMethodRequest = GetMethodRequest & CreateMethodRequest;
 
 export class MethodController {
   // Aplicar filtros de busca futuramente
@@ -61,10 +63,32 @@ export class MethodController {
   ) {
     try {
       const { params, user } = request;
-      
+
       const repository = new MethodRepository();
       const useCase = new GetMethodUseCase(repository);
       const method = await useCase.execute(params.id, user.sub);
+
+      reply.code(200).send({ method });
+    } catch (error) {
+      if (error instanceof BaseError) {
+        return reply.code(error.statusCode).send({ message: error.message });
+      }
+
+      console.error(error);
+      reply.code(500).send({ message: "Erro interno" });
+    }
+  }
+
+  static async edit(
+    request: FastifyRequest<EditMethodRequest>,
+    reply: FastifyReply
+  ) {
+    try {
+      const { params, body, user } = request;
+
+      const repository = new MethodRepository();
+      const useCase = new EditMethodUseCase(repository);
+      const method = await useCase.execute(params.id, body, user.sub);
 
       reply.code(200).send({ method });
     } catch (error) {

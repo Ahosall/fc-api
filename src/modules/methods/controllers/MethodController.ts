@@ -2,19 +2,20 @@ import { FastifyReply, FastifyRequest } from "fastify";
 
 import { BaseError } from "@shared/errors/BaseError";
 
-import { MethodRepository } from "../repositories/MethodRepository";
-
 import {
-  CreateMethodUseCase,
-  TCreateMethodInput,
-} from "../usecases/create-method.usecase";
+  IMethodRepository,
+  MethodRepository,
+} from "../repositories/MethodRepository";
 
+import { CreateMethodUseCase } from "../usecases/create-method.usecase";
 import { ListMethodsUseCase } from "../usecases/list-methods.usecase";
 import { GetMethodUseCase } from "../usecases/get-method.usecase";
 import { EditMethodUseCase } from "../usecases/edit-method.usecase";
 import { DeleteMethodUseCase } from "../usecases/delete-method.usecase";
 
-export type CreateMethodRequest = { Body: TCreateMethodInput };
+export type CreateMethodRequest = {
+  Body: Omit<IMethodRepository, "id" | "userId" | "createdAt" | "updatedAt">;
+};
 export type GetMethodRequest = { Params: { id: string } };
 export type EditMethodRequest = GetMethodRequest & CreateMethodRequest;
 export type DeleteMethodRequest = GetMethodRequest;

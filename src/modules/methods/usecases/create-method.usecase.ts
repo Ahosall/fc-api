@@ -3,7 +3,7 @@ import {
   MethodRepository,
 } from "../repositories/MethodRepository";
 
-export type TCreateMethodInput = Omit<
+type TCreateMethodInput = Omit<
   IMethodRepository,
   "id" | "userId" | "createdAt" | "updatedAt"
 >;

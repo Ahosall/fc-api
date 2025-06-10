@@ -10,8 +10,10 @@ import {
 } from "../usecases/create-method.usecase";
 
 import { ListMethodsUseCase } from "../usecases/list-methods.usecase";
+import { GetMethodUseCase } from "../usecases/get-method.usecase";
 
 export type CreateMethodRequest = { Body: TCreateMethodInput };
+export type GetMethodRequest = { Params: { id: string } };
 
 export class MethodController {
   // Aplicar filtros de busca futuramente
@@ -43,6 +45,28 @@ export class MethodController {
       await useCase.execute(body, user.sub);
 
       reply.status(201).send({ message: "Forma de pagamento criada" });
+    } catch (error) {
+      if (error instanceof BaseError) {
+        return reply.code(error.statusCode).send({ message: error.message });
+      }
+
+      console.error(error);
+      reply.code(500).send({ message: "Erro interno" });
+    }
+  }
+
+  static async get(
+    request: FastifyRequest<GetMethodRequest>,
+    reply: FastifyReply
+  ) {
+    try {
+      const { params, user } = request;
+      
+      const repository = new MethodRepository();
+      const useCase = new GetMethodUseCase(repository);
+      const method = await useCase.execute(params.id, user.sub);
+
+      reply.code(200).send({ method });
     } catch (error) {
       if (error instanceof BaseError) {
         return reply.code(error.statusCode).send({ message: error.message });

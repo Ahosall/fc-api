@@ -22,4 +22,12 @@ export class MethodRepository {
   async create(data: TCreateMethod) {
     await prisma.paymentMethod.create({ data });
   }
+
+  async get(id: string, userId: string) {
+    const method = await prisma.paymentMethod.findFirst({
+      where: { id, userId },
+    });
+
+    return method;
+  }
 }

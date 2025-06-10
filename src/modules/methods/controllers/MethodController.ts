@@ -12,10 +12,12 @@ import {
 import { ListMethodsUseCase } from "../usecases/list-methods.usecase";
 import { GetMethodUseCase } from "../usecases/get-method.usecase";
 import { EditMethodUseCase } from "../usecases/edit-method.usecase";
+import { DeleteMethodUseCase } from "../usecases/delete-method.usecase";
 
 export type CreateMethodRequest = { Body: TCreateMethodInput };
 export type GetMethodRequest = { Params: { id: string } };
 export type EditMethodRequest = GetMethodRequest & CreateMethodRequest;
+export type DeleteMethodRequest = GetMethodRequest;
 
 export class MethodController {
   // Aplicar filtros de busca futuramente
@@ -91,6 +93,28 @@ export class MethodController {
       const method = await useCase.execute(params.id, body, user.sub);
 
       reply.code(200).send({ method });
+    } catch (error) {
+      if (error instanceof BaseError) {
+        return reply.code(error.statusCode).send({ message: error.message });
+      }
+
+      console.error(error);
+      reply.code(500).send({ message: "Erro interno" });
+    }
+  }
+
+  static async remove(
+    request: FastifyRequest<DeleteMethodRequest>,
+    reply: FastifyReply
+  ) {
+    try {
+      const { params, user } = request;
+
+      const repository = new MethodRepository();
+      const useCase = new DeleteMethodUseCase(repository);
+      await useCase.execute(params.id, user.sub);
+
+      reply.code(200).send({ message: "Forma de pagamento deletada" });
     } catch (error) {
       if (error instanceof BaseError) {
         return reply.code(error.statusCode).send({ message: error.message });

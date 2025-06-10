@@ -39,4 +39,8 @@ export class MethodRepository {
 
     return method;
   }
+
+  async delete(id: string, userId: string) {
+    await prisma.paymentMethod.delete({ where: { id, userId } });
+  }
 }

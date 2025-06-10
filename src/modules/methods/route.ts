@@ -5,12 +5,13 @@ import {
   CreateMethodRequest,
   GetMethodRequest,
   EditMethodRequest,
+  DeleteMethodRequest,
 } from "./controllers/MethodController";
 
 export const methodsRoutes = (instance: FastifyInstance) => {
   const preConf = { preHandler: [instance.authenticate] };
 
-  const { list, create, get, edit } = MethodController;
+  const { list, create, get, edit, remove } = MethodController;
 
   // GET:/methods/list
   instance.get("/list", preConf, list);
@@ -25,4 +26,5 @@ export const methodsRoutes = (instance: FastifyInstance) => {
   instance.put<EditMethodRequest>("/:id/edit", preConf, edit);
 
   // DELETE:/methods/:id/delete
+  instance.delete<DeleteMethodRequest>("/:id/delete", preConf, remove);
 };
